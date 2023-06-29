@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mysql.mybatis.test.demo.user.dao.UserDao">
+
+    <insert id="userRegist" parameterType="com.mysql.mybatis.test.demo.user.vo.User">
+        insert into user_master (id, name, pwd, phone, birth)
+        values (#{id}, #{name}, #{pwd}, #{phone}, #{birth})
+    </insert>
+
+    <update id="userUpdate" parameterType="com.mysql.mybatis.test.demo.user.vo.User">
+        update user_master
+           set name = #{name}
+               , pwd =  #{pwd}
+               , phone = #{phone}
+               , birth = #{birth}
+         where id = #{id}
+    </update>
+
+    <delete id="userDelete" parameterType="com.mysql.mybatis.test.demo.user.vo.User">
+        delete from user_master
+         where id = #{id}
+    </delete>
+</mapper>
