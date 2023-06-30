@@ -11,7 +11,5 @@ mybatis:
 #    lazy-loading-enabled: true
 #    cash-enabled: false
 #    local-cache-scope: STATEMENT
-  mapper-locations: classpath:mapper/**/*.xml
   config-location: classpath:config/mybatis/mybatis-plugins.xml
-#  plugins:
-#    interceptor: com.mysql.mybatis.test.demo.common.interceptor.PrintQueryInterceptor
+  mapper-locations: classpath:mapper/**/*.xml
