@@ -43,7 +43,7 @@ public class PrintQueryInterceptor implements Interceptor {
                 try {
                     cache = mappedStatement.getConfiguration().getCache(nameSpace);
                     if (cache != null) {
-                        MetaObject metaObject = SystemMetaObject.forObject(mappedStatement
+                        MetaObject metaObject = SystemMetaObject.forObject(mappedStatement);
                         metaObject.setValue("cache", cache);
                     }
                 } catch (IllegalArgumentException e) {
