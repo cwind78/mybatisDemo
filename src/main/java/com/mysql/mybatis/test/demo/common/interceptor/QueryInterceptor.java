@@ -7,7 +7,6 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
@@ -23,6 +22,7 @@ import com.mysql.mybatis.test.demo.user.vo.PagableResponse;
           @Signature(type=Executor.class, method="query", args={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
 })
 public class QueryInterceptor implements Interceptor {
+	//참고 사이트: https://morian-kim.tistory.com/47
 	private static String COUNT_ID_SUFFIX = "-Long"; 
         	  @Override
         	  public Object intercept(Invocation invocation) throws Throwable {
