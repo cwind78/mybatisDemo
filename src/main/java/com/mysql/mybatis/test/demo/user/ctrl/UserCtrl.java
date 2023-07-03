@@ -1,11 +1,11 @@
 package com.mysql.mybatis.test.demo.user.ctrl;
 
-import com.mysql.mybatis.test.demo.common.util.Util;
+//import com.mysql.mybatis.test.demo.common.util.Util;
 import com.mysql.mybatis.test.demo.common.vo.Rslt;
 import com.mysql.mybatis.test.demo.user.svc.UserSvc;
 import com.mysql.mybatis.test.demo.user.type.UserType;
 import com.mysql.mybatis.test.demo.user.vo.User;
-import jakarta.websocket.server.PathParam;
+//import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +33,17 @@ public class UserCtrl {
     public Rslt userDelete(@RequestBody User u) throws Exception {
         type = UserType.DELETE;
         return svc.userProcess(type, u);
+    }
+    
+    @PostMapping("/user/set/update")
+    public Rslt userUpdate(@RequestBody User u) throws Exception {
+        type = UserType.UPDATE;
+        return svc.userProcess(type, u);
+    }
+    
+    @GetMapping("/user/set/block")
+    public Rslt userBlockInsert() throws Exception {
+        return svc.userBlockInsert();
     }
 
     @ExceptionHandler(Exception.class)

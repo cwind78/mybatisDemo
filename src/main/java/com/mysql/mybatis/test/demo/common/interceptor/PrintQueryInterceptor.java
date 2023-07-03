@@ -1,7 +1,7 @@
 package com.mysql.mybatis.test.demo.common.interceptor;
 
-import com.mysql.mybatis.test.demo.user.dao.UserDao;
-import com.mysql.mybatis.test.demo.user.vo.User;
+//import com.mysql.mybatis.test.demo.user.dao.UserDao;
+//import com.mysql.mybatis.test.demo.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.executor.Executor;
@@ -25,7 +25,7 @@ public class PrintQueryInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         Method mthd = invocation.getMethod();
-        String query = "";
+//        String query = "";
 
         Object[] args = invocation.getArgs();
         Object param = args[1];

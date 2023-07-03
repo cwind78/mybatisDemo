@@ -9,4 +9,5 @@ import java.util.List;
 public interface UserSvc {
     public Rslt userProcess(UserType t, User u) throws Exception;
     public List<User> userGetList();
+    public Rslt userBlockInsert();
 }

@@ -6,13 +6,15 @@ import com.mysql.mybatis.test.demo.user.dao.UserDao;
 import com.mysql.mybatis.test.demo.user.svc.UserSvc;
 import com.mysql.mybatis.test.demo.user.type.UserType;
 import com.mysql.mybatis.test.demo.user.vo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.SqlSessionTemplate;
+//import org.apache.ibatis.annotations.Mapper;
+//import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
-import java.lang.reflect.InvocationTargetException;
+//import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service("userSvc")
 public class UserSvcImpl implements UserSvc {
@@ -43,5 +45,19 @@ public class UserSvcImpl implements UserSvc {
 
     public List<User> userGetList() {
         return dao.userGetList();
+    }
+    
+    public Rslt userBlockInsert() {
+    	Rslt rslt = new Rslt("S", "성공");
+    	try {
+	    	IntStream.rangeClosed(0, 1000).forEach(i-> {
+	    		String s = String.valueOf(i);
+	    		dao.userRegist(new User("t"+s, "t"+s, "01011112222", "19990101", "t"+s));
+	    	});
+    	} catch (Exception e) {
+    		rslt.setCode("E");
+    		rslt.setMsg("오류");
+    	}
+    	return rslt;
     }
 }
