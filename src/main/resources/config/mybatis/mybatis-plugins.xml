@@ -11,5 +11,6 @@
     </settings>
     <plugins>
         <plugin interceptor="com.mysql.mybatis.test.demo.common.interceptor.PrintQueryInterceptor" />
+        <plugin interceptor="com.mysql.mybatis.test.demo.common.interceptor.QueryInterceptor" />
     </plugins>
 </configuration>

@@ -5,6 +5,24 @@ spring:
     password: 0911
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+#springdoc:
+#  version: '@springdoc.version@'
+#  api-docs:
+#    groups:
+#      enabled: true
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    display-request-duration: true
+#    groups-order: DESC
+#    operationsSorter: method
+#    disable-swagger-default-url: true
+#  show-actuator: true
+#  group-configs:
+#  - group: stores
+#    paths-to-match: /user/**
+#  - group: users
+#    packages-to-scan: com.mysql.mybatis.test.demo
+
 mybatis:
 #  configuration:
 #    map-underscore-to-camel-case: true

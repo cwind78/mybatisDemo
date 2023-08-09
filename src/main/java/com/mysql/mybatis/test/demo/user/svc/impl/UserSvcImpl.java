@@ -5,7 +5,10 @@ import com.mysql.mybatis.test.demo.common.vo.Rslt;
 import com.mysql.mybatis.test.demo.user.dao.UserDao;
 import com.mysql.mybatis.test.demo.user.svc.UserSvc;
 import com.mysql.mybatis.test.demo.user.type.UserType;
+import com.mysql.mybatis.test.demo.user.vo.PagableResponse;
 import com.mysql.mybatis.test.demo.user.vo.User;
+import com.mysql.mybatis.test.demo.user.vo.UserCondition;
+
 //import org.apache.ibatis.annotations.Mapper;
 //import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -43,8 +46,8 @@ public class UserSvcImpl implements UserSvc {
         }
     }
 
-    public List<User> userGetList() {
-        return dao.userGetList();
+    public PagableResponse<User> userGetList(UserCondition condition) {
+        return dao.userGetList(condition);
     }
     
     public Rslt userBlockInsert() {
