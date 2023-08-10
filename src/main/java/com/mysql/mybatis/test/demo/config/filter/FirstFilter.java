@@ -25,6 +25,7 @@ public class FirstFilter implements Filter {
 //		System.out.println("first filter start");
 		Instant stime = Instant.now();
 		filterChain.doFilter(request, response);
+
 //		System.out.println("first filter stop");
 		Instant etime = Instant.now();
 		System.out.println(String.format("Duration time: %s ms", Duration.between(stime, etime).toMillis()));
