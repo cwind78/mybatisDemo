@@ -11,6 +11,7 @@ import com.mysql.mybatis.test.demo.user.vo.UserCondition;
 
 //import org.apache.ibatis.annotations.Mapper;
 //import org.mybatis.spring.SqlSessionTemplate;
+import com.mysql.mybatis.test.demo.user.vo.UserCondition;
 import org.springframework.stereotype.Service;
 //import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

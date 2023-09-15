@@ -54,14 +54,4 @@ public class PrintQueryInterceptor implements Interceptor {
 
         return invocation.proceed();
     }
-
-    SqlSession getSqlSession(Object[] args) {
-        for(Object o: args) {
-            if (o instanceof SqlSession) {
-                return (SqlSession) o;
-            }
-        }
-
-        return null;
-    }
 }

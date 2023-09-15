@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Select;
 
 
 @Mapper
-@CacheNamespace
+//@CacheNamespace
 public interface UserDao {
 //    @CacheEvict(value = "userCache")//allEntries = true, beforeInvocation=false)
     public int userRegist(User u);

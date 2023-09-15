@@ -23,82 +23,86 @@ import com.mysql.mybatis.test.demo.user.vo.PagableResponse;
 })
 public class QueryInterceptor implements Interceptor {
 	//참고 사이트: https://morian-kim.tistory.com/47
-	private static String COUNT_ID_SUFFIX = "-Long"; 
-        	  @Override
-        	  public Object intercept(Invocation invocation) throws Throwable {
-        	    try {
-        	      PageInfo pageInfo = (PageInfo) invocation.getArgs()[2];
+	private static final String COUNT_ID_SUFFIX = "-Long";
+		@Override
+        public Object intercept(Invocation invocation) throws Throwable {
+        	try {
+        		PageInfo pageInfo = (PageInfo) invocation.getArgs()[2];
 
-        	      log.debug("■■ QueryInterceptor intercept: Request Parameter가 PageInfo.class를 상속 ■■");
+        	    log.debug("■■ QueryInterceptor intercept: Request Parameter가 PageInfo.class를 상속 ■■");
 
-        	      MappedStatement listMappedStatement = (MappedStatement) invocation.getArgs()[0];
-        	      MappedStatement countMappedStatement = createCountMappedStatement(listMappedStatement);
+        	    MappedStatement listMappedStatement = (MappedStatement) invocation.getArgs()[0];
+        	    MappedStatement countMappedStatement = createCountMappedStatement(listMappedStatement);
 
-        	      // COUNT 구하기
-        	      invocation.getArgs()[0] = countMappedStatement;
-        	      List<Long> totalCount = (List<Long>) invocation.proceed();
-        	      pageInfo.setTotalCount((Long) totalCount.get(0));
+        	    // COUNT 구하기
+        	    invocation.getArgs()[0] = countMappedStatement;
+        	    List<Long> totalCount = (List<Long>) invocation.proceed();
+        	    pageInfo.setTotalCount((Long) totalCount.get(0));
 
-        	      // LIST 구하기
-        	      invocation.getArgs()[0] = listMappedStatement;
-        	      List<Object> list = (List<Object>) invocation.proceed();
+        	    // LIST 구하기
+        	    invocation.getArgs()[0] = listMappedStatement;
+        	    List<Object> list = (List<Object>) invocation.proceed();
 
-        	      return createPagableResponse(list, pageInfo);
-        	    } catch (ClassCastException e) {}
-
-        	    return invocation.proceed();
-        	  }
+        	    return createPagableResponse(list, pageInfo);
+        	} catch (ClassCastException e) {}
+	       	    return invocation.proceed();
+		}
         	  
-        	  /**
-        	   * @Method : createCountMappedStatement
-        	   * @CreateDate : 2021. 4. 19. 
-        	   * @param ms
-        	   * @return
-        	   * @Description : COUNT QUERY 결과를 받기위한 MappedStatement 생성
-        	   *                속도문제로 개선필요 시 간단히 Map으로 캐싱처리해도 될듯
-        	   */
-        	  private MappedStatement createCountMappedStatement(MappedStatement ms) {
-        	    List<ResultMap> countResultMaps = createCountResultMaps(ms);
+		/**
+		 * @Method : createCountMappedStatement
+		 * @CreateDate : 2021. 4. 19.
+		 * @param ms
+		 * @return
+		 * @Description : COUNT QUERY 결과를 받기위한 MappedStatement 생성
+		 *                속도문제로 개선필요 시 간단히 Map으로 캐싱처리해도 될듯
+		 */
+		private MappedStatement createCountMappedStatement(MappedStatement ms) {
+			List<ResultMap> countResultMaps = createCountResultMaps(ms);
 
-        	     return new MappedStatement.Builder(ms.getConfiguration(), ms.getId() + COUNT_ID_SUFFIX,
-        	       ms.getSqlSource(), ms.getSqlCommandType())
-        	       .resource(ms.getResource())
-        	       .parameterMap(ms.getParameterMap())
-        	       .resultMaps(countResultMaps) 
-        	       .fetchSize(ms.getFetchSize())
-        	       .timeout(ms.getTimeout())
-        	       .statementType(ms.getStatementType())
-        	       .resultSetType(ms.getResultSetType())
-        	       .cache(ms.getCache())
-        	       .flushCacheRequired(ms.isFlushCacheRequired())
-        	       .useCache(true)
-        	       .resultOrdered(ms.isResultOrdered())
-        	       .keyGenerator(ms.getKeyGenerator())
-        	       .keyColumn(ms.getKeyColumns() != null ? String.join(",", ms.getKeyColumns()) : null)
-        	       .keyProperty(ms.getKeyProperties() != null ? String.join(",", ms.getKeyProperties()): null)
-        	       .databaseId(ms.getDatabaseId())
-        	       .lang(ms.getLang())
-        	       .resultSets(ms.getResultSets() != null ? String.join(",", ms.getResultSets()): null)
-        	     .build();
-        	  }
+			log.info("ms.getSqlSource(): {}", ms.getSqlSource().getBoundSql(ms.getParameterMap()).getSql());
+			log.info("ms.getResource(): {}", ms.getResource());
+			log.info("ms.getSqlCommandType(): {}", ms.getSqlCommandType());
+			log.info("ms.getParameterMap(): {}", ms.getParameterMap());
+			log.info("ms.getStatementType(): {}", ms.getStatementType());
+			return new MappedStatement.Builder(ms.getConfiguration(), ms.getId() + COUNT_ID_SUFFIX,
+			ms.getSqlSource(), ms.getSqlCommandType())
+				.resource(ms.getResource())
+				.parameterMap(ms.getParameterMap())
+				.resultMaps(countResultMaps)
+				.fetchSize(ms.getFetchSize())
+				.timeout(ms.getTimeout())
+				.statementType(ms.getStatementType())
+				.resultSetType(ms.getResultSetType())
+				.cache(ms.getCache())
+				.flushCacheRequired(ms.isFlushCacheRequired())
+				.useCache(true)
+				.resultOrdered(ms.isResultOrdered())
+				.keyGenerator(ms.getKeyGenerator())
+				.keyColumn(ms.getKeyColumns() != null ? String.join(",", ms.getKeyColumns()) : null)
+				.keyProperty(ms.getKeyProperties() != null ? String.join(",", ms.getKeyProperties()): null)
+				.databaseId(ms.getDatabaseId())
+				.lang(ms.getLang())
+				.resultSets(ms.getResultSets() != null ? String.join(",", ms.getResultSets()): null)
+				.build();
+		}
         	  
-        	  /**
-        	   * @Method : createCountResultMaps
-        	   * @CreateDate : 2021. 4. 19. 
-        	   * @param ms
-        	   * @return
-        	   * @Description : COUNT QUERY 결과를 받기위한 ResultMaps 생성
-        	   */
-        	  private List<ResultMap> createCountResultMaps(MappedStatement ms) {
-        	    List<ResultMap> countResultMaps = new ArrayList<>();
+	    /**
+	     * @Method : createCountResultMaps
+	     * @CreateDate : 2021. 4. 19.
+	     * @param ms
+	     * @return
+	     * @Description : COUNT QUERY 결과를 받기위한 ResultMaps 생성
+	     */
+	    private List<ResultMap> createCountResultMaps(MappedStatement ms) {
+			List<ResultMap> countResultMaps = new ArrayList<>();
 
-        	    ResultMap countResultMap =
-        	        new ResultMap.Builder(ms.getConfiguration(), ms.getId() + COUNT_ID_SUFFIX, Long.class, new ArrayList<>())
-        	            .build();
-        	    countResultMaps.add(countResultMap);
+			ResultMap countResultMap =
+				new ResultMap.Builder(ms.getConfiguration(), ms.getId() + COUNT_ID_SUFFIX, Long.class, new ArrayList<>())
+					.build();
+			countResultMaps.add(countResultMap);
 
-        	    return countResultMaps;
-        	  }
+			return countResultMaps;
+	    }
         	  
         	  /**
         	   * @Method : createPagableResponse
