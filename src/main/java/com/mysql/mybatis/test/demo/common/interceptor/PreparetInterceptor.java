@@ -4,6 +4,7 @@ import com.mysql.mybatis.test.demo.common.vo.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.SqlCommandType;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
@@ -19,7 +20,7 @@ import java.sql.Connection;
 @Slf4j
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare",
         args = {Connection.class, Integer.class})})
-public class PreparetInterceptor {
+public class PreparetInterceptor implements Interceptor {
     private static final DefaultObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
     private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY =
             new DefaultObjectWrapperFactory();
@@ -109,7 +110,7 @@ public class PreparetInterceptor {
         return sqlCommandType.equals(SqlCommandType.SELECT);
     }
 
-    //@Override
+    @Override
     public Object intercept(Invocation invocation) throws Throwable {
         try {
             MetaObject metaStatementHandler = MetaObject.forObject(invocation.getTarget(),

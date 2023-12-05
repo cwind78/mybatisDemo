@@ -10,6 +10,7 @@ import com.mysql.mybatis.test.demo.user.vo.UserCondition;
 
 import jakarta.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 //import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Slf4j
 @RestController
 public class UserCtrl {
     UserSvc svc;
@@ -37,6 +39,12 @@ public class UserCtrl {
     @GetMapping("/user/getList")
     public PagableResponse<User> userGetListo(@ModelAttribute @Valid UserCondition condition) throws Exception {
         return svc.userGetList(condition);
+    }
+
+    @GetMapping("/user/getlist/test")
+    public PagableResponse<User> userGetListo() throws Exception {
+        log.info("In userGetListo method");
+        return svc.userGetList(new UserCondition());
     }
 
     @PostMapping("/user/set/delete")

@@ -15,20 +15,20 @@ public class SecondFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		//
 		Filter.super.init(filterConfig);
-		System.out.println("second filter init");		
+//		System.out.println("second filter init");
 	}
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-		System.out.println("second filter start");
+		//System.out.println("second filter start");
 		filterChain.doFilter(request, response);
-		System.out.println("second filter stop");
+		//System.out.println("second filter stop");
 	}
 
 	@Override
 	public void destroy() {
 		//
-		System.out.println("second filter destroy");
+//		System.out.println("second filter destroy");
 		Filter.super.destroy();
 	}
 

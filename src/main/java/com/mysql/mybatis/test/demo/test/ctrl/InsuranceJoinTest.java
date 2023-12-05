@@ -1,10 +1,12 @@
 package com.mysql.mybatis.test.demo.test.ctrl;
 
+import com.mysql.mybatis.test.demo.common.annotation.MthdLogger;
 import com.mysql.mybatis.test.demo.test.svc.InsuranceJoinTestSvc;
 import com.mysql.mybatis.test.demo.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +31,15 @@ public class InsuranceJoinTest {
         return result;
     }
 
-    @GetMapping("/insurance/get/list")
-    public List<User> getInsuranceJoinList() {
+    @MthdLogger(isArgumentLogging = true)
+    @GetMapping(path = {"/insurance/get/list/{name}", "/insurance/get/list"})
+    public List<User> getInsuranceJoinList(@PathVariable(required = false, value="name") String name) {
+        return svc.getUserList(new User());
+    }
+
+    @MthdLogger(isArgumentLogging = false)
+    @GetMapping(path = {"/insurance/get/listo/{name}", "/insurance/get/listo"})
+    public List<User> getInsuranceJoinOList(@PathVariable(required = false, value="name") String name) {
         return svc.getUserList(new User());
     }
 }
