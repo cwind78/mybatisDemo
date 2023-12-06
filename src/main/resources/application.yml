@@ -4,29 +4,37 @@ spring:
     username: ap01
     password: 0911
     driver-class-name: com.mysql.cj.jdbc.Driver
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
-
+#  data:
+#    redis:
+#      host: 127.0.0.1
+#      port: 6379
 #springdoc:
 #  version: '@springdoc.version@'
 #  api-docs:
+#    path: /api-docs
 #    groups:
 #      enabled: true
 #  swagger-ui:
-#    path: /swagger-ui.html
+#    path: /index.html
+#    enabled: true
 #    display-request-duration: true
-#    groups-order: DESC
-#    operationsSorter: method
-#    disable-swagger-default-url: true
+#    tags-sorter: alpha
+#    groups-order: ASC
+#    operationsSorter: alpha
+#    doc-expansion: none
+#      disable-swagger-default-url: true
 #  show-actuator: true
 #  group-configs:
 #  - group: stores
 #    paths-to-match: /user/**
 #  - group: users
 #    packages-to-scan: com.mysql.mybatis.test.demo
-
+#  cache:
+#    disabled: true
+#  override-with-generic-response: false
+#  model-and-view-allowed: true
+#  default-produces-media-type: application/json
+#  default-consumes-media-type: application/json
 mybatis:
 #  configuration:
 #    map-underscore-to-camel-case: true

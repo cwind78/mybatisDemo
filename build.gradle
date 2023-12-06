@@ -26,24 +26,24 @@ repositories {
 
 dependencies {
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
-    implementation 'org.springframework.session:spring-session-data-redis'
-    implementation 'org.springframework.session:spring-session-jdbc'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+//    implementation 'org.springframework.session:spring-session-data-redis'
+//    implementation 'org.springframework.session:spring-session-jdbc'
 
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //아래 요거만 추가해도(yml, 설정파일등 필요 없이) 스웨거 된다. boot 3버전 이상에서는 아래의 의존성을 명시해야 하고 2점대에서는 다른 의존성을 명시한다.
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-//    implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
-    implementation 'org.springframework.boot:spring-boot-starter-aop:3.1.2'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+//    implementation 'org.springframework.boot:spring-boot-starter-validation'
+//    implementation 'org.springframework.boot:spring-boot-starter-aop:3.1.2'
     implementation 'org.aspectj:aspectjrt:1.9.6'
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-    implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.6'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
-    implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.17.0'
+
+//    implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.6'
+//	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
+//    implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.17.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
