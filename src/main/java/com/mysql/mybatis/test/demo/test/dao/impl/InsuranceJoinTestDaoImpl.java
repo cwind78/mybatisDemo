@@ -1,5 +1,6 @@
 package com.mysql.mybatis.test.demo.test.dao.impl;
 
+import com.mysql.mybatis.test.demo.common.annotation.MthdParameterLogger;
 import com.mysql.mybatis.test.demo.test.dao.InsuranceJoinTestDao;
 import com.mysql.mybatis.test.demo.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,9 @@ public class InsuranceJoinTestDaoImpl implements InsuranceJoinTestDao {
         return 999;
     }
 
+    @MthdParameterLogger(isArgumentLogging = true, isResultLogging = true)
     public int insertJoin(User user) {
+        log.info(user.getName());
         return 1;
     }
 

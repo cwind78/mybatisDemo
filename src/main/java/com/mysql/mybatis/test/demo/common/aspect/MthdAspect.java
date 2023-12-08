@@ -2,6 +2,7 @@ package com.mysql.mybatis.test.demo.common.aspect;
 
 
 import com.mysql.mybatis.test.demo.common.annotation.MthdLogger;
+import com.mysql.mybatis.test.demo.common.annotation.MthdParameterLogger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -50,6 +51,30 @@ public class MthdAspect {
         stopWatch.stop();
 
         if(methodLogging.isResultLogging()){
+            log.info("[RESPONSE INFO] :: [{}] - {}ms", result, stopWatch.getTotalTimeMillis());
+        }
+
+        return result;
+    }
+
+    @Around("execution(* com.mysql.mybatis..dao..*(..)) && @annotation(com.mysql.mybatis.test.demo.common.annotation.MthdParameterLogger)")
+    public Object daoLog(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object[] args = joinPoint.getArgs();
+        final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        final Method method = methodSignature.getMethod();
+        MthdParameterLogger mthdParameterLogger = method.getAnnotation(MthdParameterLogger.class);
+log.info("[Come in]");
+        for (Object arg : args) {
+            log.info("[]{}.Argument: {}", method.getName(), arg);
+        }
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        Object result = joinPoint.proceed();
+        stopWatch.stop();
+
+        if(mthdParameterLogger.isResultLogging()){
             log.info("[RESPONSE INFO] :: [{}] - {}ms", result, stopWatch.getTotalTimeMillis());
         }
 

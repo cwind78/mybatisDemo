@@ -5,10 +5,7 @@ import com.mysql.mybatis.test.demo.test.svc.InsuranceJoinTestSvc;
 import com.mysql.mybatis.test.demo.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,7 @@ public class InsuranceJoinTest {
     private InsuranceJoinTestSvc svc;
 
     @PostMapping("/insurance/set/join")
-    public List<User> joinTest(User user) {
+    public List<User> joinTest(@RequestBody User user) {
         List<User> result = new ArrayList<>();
         //서비스 호출
         try {
